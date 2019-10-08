@@ -1,0 +1,17 @@
+
+<template name="accounts">
+  <h1>Accounts</h1>
+  <dl class="row">
+    {{#each accounts}}
+      <dt class="col-8"><a href="{{pathFor 'accountDetails'}}">{{name}}</a></dt><dd class="col-4">{{balance}}</dd>
+    {{else}}
+      <div class="">No accounts, create one</div>
+    {{/each}}
+  </dl>
+  <button class="btn btn-primary">Add Account</button>
+</template>
+
+<template name="accountDetails">
+  <h1>{{name}}</h1>
+  <p>Balance: {{balance}}</p>
+</template>
