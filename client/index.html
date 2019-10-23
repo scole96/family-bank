@@ -17,10 +17,10 @@
 
 </head>
 
-<template name="layout">
+<template name="mainLayout">
   <div>
     {{> header}}
-    <div class="container-fluid">
+    <div class="container-fluid content">
       {{> yield}}
     </div>
     {{> footer}}
@@ -28,11 +28,61 @@
 </template>
 
 <template name="header">
+  <nav class="navbar navbar-main navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <template name="footer">
   <footer class="navbar-fixed-bottom">
 
   </footer>
+</template>
+
+
+<template name="detailsLayout">
+  <div>
+    {{> header}}
+    <div class="container-fluid content">
+      <div class="subheader">
+        <div class="row">
+          <div class="col-6"><h2>{{name}}</h2></div>
+          <div class="col-5"><h2>{{formatCurrency balance}}</h2></div>
+          <div class="col-1 close-x"><a href="{{pathFor 'accounts'}}"><i class="fa fa-close fa-2x"></i></a></div>
+        </div>
+      </div>
+      {{> yield}}
+    </div>
+    {{> footer}}
+  </div>
+</template>
+
+
+<template name='signIn'>
+  <div class="container">
+    <div class="card account-card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <p>Welcome to the Family Bank</p>
+            <p>Let's get your setup</p>
+            <button type="button" class="btn btn-primary btn-login-google">Login With Google</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

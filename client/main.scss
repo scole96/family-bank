@@ -1,6 +1,26 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
-  padding: 10px;
+  padding: 0px;
   font-family: sans-serif;
+  background-color: #999;
+}
+nav.navbar-main {
+  background: linear-gradient(to top,rgba(0,60,105,.52),rgba(0,60,105,.8)) !important;
+
+}
+div.subheader {
+  background-color: #00578c;
+  padding: 10px 15px;
+  margin: 0 -15px;
+  color: #fff;
+  div.close-x{
+    background-color: #081354;
+    padding: 15px 10px 15px 10px;
+    margin: -10px -10px -10px -10px;
+    min-width: 40px;
+  }
+}
+div.account-card {
+  margin: 15px 5px;
 }
