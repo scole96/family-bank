@@ -1,0 +1,1 @@
+export BankAccounts = new Meteor.Collection("bank_accounts")

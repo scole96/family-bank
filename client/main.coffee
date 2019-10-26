@@ -1,24 +1,26 @@
-import { Accounts } from '../lib/accounts.coffee';
+import { BankAccounts } from '../lib/bankAccounts.coffee';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import { _ } from 'underscore';
 
 userSignedIn = (router) ->
+  console.log "userSignedIn?"
   unless Meteor.loggingIn()
-    unless Meteor.user() 
+    unless Meteor.user()?
+      console.log "need to sign in first"
       Router.go 'signIn'
   router.next?() if router?
   return true
 
 Router.map ->
   @route 'accounts',
-    path: '/'
+    path: '/accounts'
     layoutTemplate: 'mainLayout'
     onBeforeAction: ->
       userSignedIn(this)
     waitOn: () ->
-      Meteor.subscribe('accounts')
+      Meteor.subscribe('bankAccounts')
     data: () ->
-      accounts: Accounts.find()
+      accounts: BankAccounts.find()
 
 Router.map ->
   @route 'addAccount',
@@ -32,20 +34,21 @@ Template.addAccount.events
   'submit form': (event, template) ->
     event.preventDefault()
     account = processForm event.currentTarget
+    account._id = Random.id()
     account.create_date = new Date()
     account.balance = 0
     account.owner_id = Meteor.userId()
-    Accounts.insert account
-    Router.go '/'
+    BankAccounts.insert account
+    Router.go 'accounts'
 
 Router.map ->
   @route 'accountDetails',
     path: '/account/:_id'
     layoutTemplate: 'detailsLayout'
     waitOn: () ->
-      Meteor.subscribe('accounts')
+      Meteor.subscribe('bankAccounts')
     data: () ->
-      Accounts.findOne(@params._id)
+      BankAccounts.findOne(@params._id)
 
 
 UI.registerHelper 'formatCurrency', (n) ->
@@ -72,18 +75,18 @@ Router.map ->
     path: '/account/:_id/deposit'
     layoutTemplate: 'detailsLayout'
     waitOn: () ->
-      Meteor.subscribe('accounts')
+      Meteor.subscribe('bankAccounts')
     data: () ->
-      Accounts.findOne(@params._id)
+      BankAccounts.findOne(@params._id)
 
 Router.map ->
   @route 'withdraw',
     path: '/account/:_id/withdraw'
     layoutTemplate: 'detailsLayout'
     waitOn: () ->
-      Meteor.subscribe('accounts')
+      Meteor.subscribe('bankAccounts')
     data: () ->
-      Accounts.findOne(@params._id)
+      BankAccounts.findOne(@params._id)
 
 Template.deposit.events
   'submit form': (event, template) ->
@@ -92,7 +95,7 @@ Template.deposit.events
     tx = processForm event.currentTarget
     tx.type = 'credit'
     tx.amount = tx.amount*100
-    Accounts.update account._id, {$inc:{balance: tx.amount}, $push: {transactions: tx}}
+    BankAccounts.update account._id, {$inc:{balance: tx.amount}, $push: {transactions: tx}}
     Router.go 'accountDetails', account
 
 Template.withdraw.events
@@ -102,7 +105,7 @@ Template.withdraw.events
     tx = processForm event.currentTarget
     tx.type = 'debit'
     tx.amount = tx.amount*-100
-    Accounts.update account._id, {$inc:{balance: tx.amount}, $push: {transactions: tx}}
+    BankAccounts.update account._id, {$inc:{balance: tx.amount}, $push: {transactions: tx}}
     Router.go 'accountDetails', account
 
 processForm = (target, defaultValue) ->

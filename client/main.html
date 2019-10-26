@@ -28,7 +28,9 @@
       </div>
     </div>
   {{/each}}
-  <a href="{{pathFor 'addAccount'}}" class="btn btn-primary">Add Account</a>
+  {{#if currentUser.profile.master_account}}
+    <a href="{{pathFor 'addAccount'}}" class="btn btn-primary">Add Account</a>
+  {{/if}}
 </template>
 
 <template name="addAccount">
@@ -59,10 +61,12 @@
     {{>transactionDetails}}
   {{/each}}
 
-  <nav class="navbar fixed-bottom navbar-light bg-light">
-    <a href="{{pathFor 'deposit'}}" class="btn btn-primary btn-deposit">Deposit</a>
-    <a href="{{pathFor 'withdraw'}}" class="btn btn-primary btn-withdraw">Withdraw</a>
-  </nav>
+  {{#if currentUser.profile.master_account}}
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+      <a href="{{pathFor 'deposit'}}" class="btn btn-primary btn-deposit">Deposit</a>
+      <a href="{{pathFor 'withdraw'}}" class="btn btn-primary btn-withdraw">Withdraw</a>
+    </nav>
+  {{/if}}
 </template>
 
 <template name="transactionDetails">

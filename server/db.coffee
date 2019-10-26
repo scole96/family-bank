@@ -1,7 +1,10 @@
-import { Accounts } from '../lib/accounts.coffee';
+import { BankAccounts } from '../lib/bankAccounts.coffee';
 
-Accounts.allow(
-  insert: (id, object) ->
+BankAccounts.allow(
+  insert: (id, account) ->
+    console.log "BankAccounts.insert #{id}", account
+    if (user=Meteor.users.findOne({'profile.email':  account.email}))?
+      Meteor.users.update user._id, $push: {'profile.account_ids': account._id}
     return true
   update: (id, change, fieldnames, modifier) ->
     return true
