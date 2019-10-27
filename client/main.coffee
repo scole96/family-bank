@@ -3,10 +3,8 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import { _ } from 'underscore';
 
 userSignedIn = (router) ->
-  console.log "userSignedIn?"
   unless Meteor.loggingIn()
     unless Meteor.user()?
-      console.log "need to sign in first"
       Router.go 'signIn'
   router.next?() if router?
   return true

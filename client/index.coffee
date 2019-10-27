@@ -3,7 +3,6 @@ Router.map ->
   @route 'index',
     path: '/'
     action: () ->
-      console.log "index path"
       if Meteor.user()?
         Router.go('accounts')
       else

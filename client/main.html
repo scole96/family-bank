@@ -4,10 +4,10 @@
       <div class="card-body">
         <div class="row">
           <div class="col-6">
-            <h3>{{name}}</h3>
+            <h5>{{name}}</h5>
           </div>
           <div class="col-6">
-            <h3>{{formatCurrency balance}}</h3>
+            <h5>{{formatCurrency balance}}</h5>
           </div>
         </div>
         <hr>
@@ -48,7 +48,7 @@
               <input type="email" name="email" placeholder="Email Address">
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            <a href="{{pathFor 'accounts'}}" class="btn btn-default">Cancel</a>
           </form>
         </div>
       </div>

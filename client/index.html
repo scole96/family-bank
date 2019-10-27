@@ -29,6 +29,7 @@
 
 <template name="header">
   <nav class="navbar navbar-main navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><i class="fa fa-bank fa-2x"></i>The Family Bank</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,13 +37,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="{{pathFor 'accounts'}}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link logout" href="#">Logout</a>
         </li>
       </ul>
     </div>
+
   </nav>
 </template>
 
@@ -59,9 +61,9 @@
     <div class="container-fluid content">
       <div class="subheader">
         <div class="row">
-          <div class="col-6"><h2>{{name}}</h2></div>
-          <div class="col-5"><h2>{{formatCurrency balance}}</h2></div>
-          <div class="col-1 close-x"><a href="{{pathFor 'accounts'}}"><i class="fa fa-close fa-2x"></i></a></div>
+          <div class="col-7"><h5 style="padding-top:0.5em;margin-bottom: 0;">{{name}}</h5></div>
+          <div class="col-4"><h5 style="padding-top:0.5em;margin-bottom: 0;">{{formatCurrency balance}}</h5></div>
+          <div class="col-1 close-x"><a href="{{pathFor 'accounts'}}"><i class="fa fa-close fa-2x" style="color:white"></i></a></div>
         </div>
       </div>
       {{> yield}}
